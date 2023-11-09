@@ -1,0 +1,154 @@
+body{
+    min-width: auto;
+    min-height: auto;
+    font-family: 'Montserrat',sans-serif;
+    font-size: 1em;
+}
+
+#parameters{
+    background-color: orange;
+    width: 50%;
+    font-weight: 700;
+    min-width: auto;
+    min-height: auto;
+    margin: 7em;
+}
+#grid{
+    display: grid;
+    grid-template-columns: auto auto;
+    row-gap: 10px;
+    column-gap: 20px;
+    
+}
+input{
+    width:5em
+}
+
+button{
+   margin-left: 6%;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    background-color: rgb(89, 89, 238);
+    height: fit-content;
+    color: white;
+    font-weight: bold;
+    border-style: solid;
+    border-width: 5px;
+    border-color: rgb(92, 91, 91);
+    border-radius: 5px;
+   
+}
+
+.grid-nesting{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    column-gap: 50px;
+
+    
+}
+
+.nesting{
+    width: 100%;
+    background-color: rgb(240, 237, 237);
+}
+.grid-item-nesting{
+
+    font-weight: bolder;
+   
+    
+    
+}
+
+#title{
+    text-align: center;
+    background-color: orange;
+    font-weight:900;
+    height: 1.6em;
+    padding-top: 10px;
+    font-size:x-large;
+}
+
+
+.title{
+    font-weight:bolder;
+    padding-top: 5%;
+    font-size: small;   
+}
+
+button:hover{
+    background-color: rgb(93, 93, 171);
+}
+.image-keyline{
+  padding: 2%;
+    width: 500px;
+    height: 500px;
+    background-color: white;
+}
+.image{
+    padding: 20px;
+    width: 500px;
+    height: 400px;
+    background-color: white;
+}
+
+#grid-item{
+    font-size: medium;
+    font-weight:bold;
+    padding: 3%;
+}
+
+.dropdown-content{
+  background-color: #f6f6f6;
+  overflow: scroll;
+  border: 1px solid #ddd;
+  z-index: 1;
+  max-height: 150px;
+  
+  
+}
+
+.dropdown-content p{
+    color: black;
+    width: auto;
+    height: 1em;
+    padding: 10px;
+    margin: 0px;
+    cursor: pointer;
+    font-size: small;
+    font-weight: 100;
+  }
+.dropdown-content p:hover{background-color: #ddd;}
+
+.grid-parameters{
+    display: grid;
+    column-gap: 10px;
+    grid-template-rows: auto auto auto auto auto;
+
+     
+}
+
+.footer{
+    background-color: green;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+
+}
+.footer button{
+    margin: 1em;
+    width:16em;
+    height: 2.5em;
+    background-color: darkblue;
+    width: fit-content;
+}
+
+.grid-parameters-item{
+    
+    font-weight: 400;
+    border-style: solid;
+    border-width: 1%;
+    padding: 5px;
+    margin: 5%;
+    border-radius: 5px;
+    width: 17em;
+    border-color: blue;
+}
