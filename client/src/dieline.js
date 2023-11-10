@@ -13,7 +13,6 @@ const Dieline = () => {
     const keyline_area = localStorage.getItem('area')
     const keyline_cut = localStorage.getItem('cut')
     const keyline_crease = localStorage.getItem('crease')
-    const keyline_actualarea = localStorage.getItem('actualarea')
     var boxstyle = localStorage.getItem('box style')
     const modified_parameters = localStorage.getItem('parameters').split(',')
   modified_parameters.forEach((item,index,arr)=>{arr[index] = (parseFloat(item))})
@@ -100,7 +99,7 @@ const modified_dustflap = parseFloat(localStorage.getItem('dustflap'))
            <div id='grid-item'>Rectangle Height</div> <div id='grid-item'>{keyline_height}</div>
            <div id='grid-item'>Rectangle Width</div> <div id='grid-item'>{keyline_width}</div>
            <div id='grid-item'>Actual Used Area</div><div id='grid-item'> {keyline_area} Sq.mm</div>
-           <div id='grid-item'>Rectangle Used Area </div><div id='grid-item'>{keyline_actualarea} Sq.mm</div>
+           <div id='grid-item'>Rectangle Used Area </div><div id='grid-item'>{keyline_height*keyline_width} Sq.mm</div>
            <div id='grid-item'>Cutting Blade Length </div><div id='grid-item'>{keyline_cut} mm</div>
            <div id='grid-item'>Creasing Blade Length </div><div id='grid-item'>{keyline_crease} mm</div>
           

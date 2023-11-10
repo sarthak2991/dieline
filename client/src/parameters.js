@@ -43,7 +43,7 @@ const Parameters = () => {
       localStorage.setItem('cut',res.data.cut)
       localStorage.setItem('crease',res.data.crease)
       localStorage.setItem('area',res.data.area)
-      localStorage.setItem('actualarea',res.data.actualarea)
+    
       window.location.href='/dieline'  
      }  
       else{

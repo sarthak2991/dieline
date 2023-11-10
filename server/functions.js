@@ -775,11 +775,11 @@ other_parameters.modified_dustflap*(0.88*parameters[1] - 10) + 78.5 + (other_par
 
     }
 
-    actualarea = width*height
+    
     svg = keylinegenerator(svg)
     svg2 = keylinegenerator(svg2)
 
-    res.status(200).json({message:"Success",svg : svg,svg2 : svg2 , width : width.toFixed(2), height : height.toFixed(2),cut : cutlength.toFixed(2),crease : creaselength.toFixed(2), area:area.toFixed(2),actualarea:actualarea.toFixed(2)})
+    res.status(200).json({message:"Success",svg : svg,svg2 : svg2 , width : width.toFixed(2), height : height.toFixed(2),cut : cutlength.toFixed(2),crease : creaselength.toFixed(2), area:area.toFixed(2)})
 }
 catch(err){
     console.log(err)
