@@ -59,7 +59,7 @@ const Parameters = () => {
   
   }
   
-  const designs = ["A001","A001A","A001B","A001D","A001E","A001F","A001H","A001I","A001J","A001AX","A002","A002A","A002AX","A002B","A002BX","A002CX","A002D","A002DX","A002E","A002EX","A002F","A002FX","A002X"]
+  const designs = ["A001","A001A","A001B","A001D","A001E","A001F","A001H","A001I","A001J","A001AX","A002","A002A","A002AX","A002B","A002BX","A002CX","A002D","A002DX","A002E","A002EX","A002F","A002FX","A002X","C001A","C001AX"]
   let filtered_result = designs
   const handleSearch = (task) => {
     if(task){

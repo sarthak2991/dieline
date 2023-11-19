@@ -4,7 +4,7 @@ const PDFDocument = require('pdfkit');
 
 const fs = require('fs')
 const svgtopdf = require('svg-to-pdfkit');
-const { A001, A001A, A001B, A001D, A001E, A001F, A001H, A001I, A001J, A001AX, A002, A002A, A002AX, A002B, A002BX, A002CX, A002D, A002DX, A002E, A002EX, A002F, A002FX, A002X, A002CXX } = require('./design');
+const { A001, A001A, A001B, A001D, A001E, A001F, A001H, A001I, A001J, A001AX, A002, A002A, A002AX, A002B, A002BX, A002CX, A002D, A002DX, A002E, A002EX, A002F, A002FX, A002X, A002CXX, C001A, C001AX } = require('./design');
 
 function keylinegenerator(svg){
     const svg1 = svg.split('"')
@@ -304,6 +304,51 @@ other_parameters.modified_dustflap*(0.88*parameters[1] - 10) + 78.5 + (other_par
 0.1*parameters[1]*(0.11*other_parameters.modified_dustflap + 1) + 1 + 0.22*other_parameters.modified_dustflap)*4
 
     }
+    if (other_parameters.boxstyle === 'C001A'){
+        const model = new C001A(parameters,other_parameters)
+        model.origin = [0,0]
+        const model1 = new C001A(parameters,other_parameters)
+        
+        model1.origin = [0,0]
+        svg2 = maker.exporter.toSVG(model1)
+        svg = maker.exporter.toSVG(model)
+        width = other_parameters.modified_glueflap + 2*parameters[0] + 2*parameters[1] - 1
+        height = 2*other_parameters.modified_tuckflap + parameters[2] + parameters[1]*2 
+        cutlength = 2*((other_parameters.modified_glueflap**2+225)**0.5) + 2*parameters[2] - 30 + (2*parameters[1] + other_parameters.modified_tuckflap*2 - 14 +
+            parameters[0] - 14 + 22 + 8)*2 + 2*parameters[0] + 4* ( 1.025*other_parameters.modified_dustflap + 0.88*parameters[1] - 10 + 16 +
+            (0.01*(parameters[1])**2 + 0.52*(other_parameters.modified_dustflap)**2)**0.5  + 2.24 + 0.11*other_parameters.modified_dustflap)
+        creaselength = 4*parameters[2] + 4*parameters[0] + 4*parameters[1] - 32
+        area =other_parameters.modified_glueflap*15 + other_parameters.modified_glueflap * (parameters[2] - 30)+
+(parameters[0] * parameters[1] + (other_parameters.modified_tuckflap - 7)*parameters[0] + 77 + 7*(parameters[0]-14))*2 + 
+2*parameters[0]*parameters[2] + 2*parameters[1]*parameters[2] + (0.0018*other_parameters.modified_dustflap**2 + 
+other_parameters.modified_dustflap*(0.88*parameters[1] - 10) + 78.5 + (other_parameters.modified_dustflap-10)*10 + 0.036*parameters[1]*other_parameters.modified_dustflap+
+0.1*parameters[1]*(0.11*other_parameters.modified_dustflap + 1) + 1 + 0.22*other_parameters.modified_dustflap)*4
+
+    }
+
+    if (other_parameters.boxstyle === 'C001AX'){
+        const model = new C001AX(parameters,other_parameters)
+        model.origin = [0,0]
+        const model1 = new C001AX(parameters,other_parameters)
+        
+        model1.origin = [0,0]
+        svg2 = maker.exporter.toSVG(model1)
+        svg = maker.exporter.toSVG(model)
+        width = other_parameters.modified_glueflap + 2*parameters[0] + 2*parameters[1] - 1
+        height = 2*other_parameters.modified_tuckflap + parameters[2] + parameters[1]*2 
+        cutlength = 2*((other_parameters.modified_glueflap**2+225)**0.5) + 2*parameters[2] - 30 + (2*parameters[1] + other_parameters.modified_tuckflap*2 - 14 +
+            parameters[0] - 14 + 22 + 8)*2 + 2*parameters[0] + 4* ( 1.025*other_parameters.modified_dustflap + 0.88*parameters[1] - 10 + 16 +
+            (0.01*(parameters[1])**2 + 0.52*(other_parameters.modified_dustflap)**2)**0.5  + 2.24 + 0.11*other_parameters.modified_dustflap)
+        creaselength = 4*parameters[2] + 4*parameters[0] + 4*parameters[1] - 32
+        area =other_parameters.modified_glueflap*15 + other_parameters.modified_glueflap * (parameters[2] - 30)+
+(parameters[0] * parameters[1] + (other_parameters.modified_tuckflap - 7)*parameters[0] + 77 + 7*(parameters[0]-14))*2 + 
+2*parameters[0]*parameters[2] + 2*parameters[1]*parameters[2] + (0.0018*other_parameters.modified_dustflap**2 + 
+other_parameters.modified_dustflap*(0.88*parameters[1] - 10) + 78.5 + (other_parameters.modified_dustflap-10)*10 + 0.036*parameters[1]*other_parameters.modified_dustflap+
+0.1*parameters[1]*(0.11*other_parameters.modified_dustflap + 1) + 1 + 0.22*other_parameters.modified_dustflap)*4
+
+    }
+
+
     if (other_parameters.boxstyle === 'A002'){
         const model = new A002(parameters,other_parameters)
         model.origin = [0,0]
@@ -800,7 +845,114 @@ const nesting  = (req,res) => {
         other_parameters.modified_length *= 25.4
         other_parameters.modified_width *= 25.4} 
         
+     if(other_parameters.boxstyle === "C001A" || other_parameters.boxstyle === "C001AX"){
+        const a = other_parameters.modified_glueflap + 2*parameters[0] + 2*parameters[1]
+        const b = other_parameters.modified_tuckflap + 1.75*parameters[1] + parameters[2]
+        const c = other_parameters.modified_tuckflap +parameters[1] + parameters[2]  
+        const d = 0.75*parameters[1] + parameters[2]
         
+        const vertical = other_parameters.modified_length - other_parameters.modified_gripper - other_parameters.modified_top
+        const horizontal = other_parameters.modified_width - other_parameters.modified_left - other_parameters.modified_right
+    let vertical_verticalup1 = 0,horizontal_horizontalup1 = 0    
+        let vertical_model = {}
+        let horizontal_model = {}
+          while (vertical >= (((vertical_verticalup+1)*b+(vertical_verticalup1)*c+(vertical_verticalup+vertical_verticalup1)*other_parameters.modified_interlock))){
+            if(vertical_verticalup>vertical_verticalup1){
+                vertical_verticalup1+=1
+            }
+            else{
+                vertical_verticalup+=1
+            }
+            
+        }
+        while (horizontal >= (a+(vertical_horizontalup*(other_parameters.modified_side+a)))){
+            vertical_horizontalup += 1
+        }
+        while (horizontal >= (((horizontal_horizontalup+1)*b+horizontal_horizontalup1*c+(vertical_verticalup+vertical_verticalup1)*other_parameters.modified_side))  ){
+            if(horizontal_horizontalup>horizontal_horizontalup1){
+                horizontal_horizontalup1+=1
+            }
+            else{
+                horizontal_horizontalup+=1
+            }
+        }
+        while(vertical >= (a+(horizontal_verticalup*(other_parameters.modified_interlock+a)))){
+            horizontal_verticalup += 1
+        }
+        for(let i = 0; i < vertical_verticalup;i++){
+            for(let j = 0; j < vertical_horizontalup;j++){
+                const model1 = new C001AX(parameters,other_parameters)
+                const model2 = maker.model.mirror(model1,false,true)
+                
+                model2.origin = [(req.body.modified_left+j*(a+req.body.modified_side)),-(req.body.modified_top+i*(c+parameters[2]+1.5*parameters[1])+2*i*other_parameters.modified_interlock),]
+                vertical_model['v'+i.toString()+j.toString()] = model2
+           
+                
+            }
+        }
+        for(let i = 0; i < vertical_verticalup1;i++){
+            for(let j = 0; j < vertical_horizontalup;j++){
+                const model = new C001A(parameters,other_parameters)
+            
+                model['origin'] = [(req.body.modified_left+j*(a+req.body.modified_side)),-(req.body.modified_top+c+parameters[2]+i*(b+parameters[2]+0.75*parameters[1])+ (2*i+1)* other_parameters.modified_interlock)]
+                vertical_model['i'+i.toString()+j.toString()] = model
+                
+                
+            }
+        }
+
+
+        for(let i = 0; i < horizontal_horizontalup;i++){
+            for(let j = 0; j < horizontal_verticalup;j++){
+                
+                const model = new C001A(parameters,other_parameters)
+                const model1 = maker.model.rotate(maker.model.mirror(model,false,true),90,[0,0])
+                model1.origin = [req.body.modified_left+i*(c+parameters[2]+1.5*parameters[1])+(2*i)*other_parameters.modified_interlock,req.body.modified_top+j*(a+req.body.modified_side)]
+                horizontal_model['v'+i.toString()+j.toString()] = model1
+                
+            }
+        }
+        
+        for(let i = 0; i < horizontal_horizontalup1;i++){
+            for(let j = 0; j < horizontal_verticalup;j++){
+                
+                const model = new C001AX(parameters,other_parameters)
+                const model1 = maker.model.rotate(model,90,[0,0])
+                model1.origin = [req.body.modified_left+c+parameters[2]+i*(b+parameters[2]+0.75*parameters[1])+(2*i+1)*other_parameters.modified_interlock,req.body.modified_top+j*(a+req.body.modified_side)]
+                horizontal_model['i'+i.toString()+j.toString()] = model1
+                       
+            }
+        }
+        
+        const final_model_vertical = {
+            models : vertical_model,
+            units : 'mm'
+        }
+    
+        svg_vertical = maker.exporter.toSVG(final_model_vertical)
+        vertical_cutting_length = (2*(other_parameters.modified_glueflap**2+225)**0.5 + 2*parameters[2] - 30 + (2*parameters[1] + other_parameters.modified_tuckflap*2 - 14 +
+            parameters[0] - 14 + 22 + 8)*2 + 2*parameters[0] + 4* ( 1.025*other_parameters.modified_dustflap + 0.88*parameters[1] - 10 + 16 +
+            (0.01*(parameters[1])**2 + 0.52*(other_parameters.modified_dustflap)**2)**0.5  + 2.24 + 0.11*other_parameters.modified_dustflap)
+            )*vertical_verticalup*vertical_horizontalup 
+        horizontal_cutting_length = (2*(other_parameters.modified_glueflap**2+225)**0.5 + 2*parameters[2] - 30 + (2*parameters[1] + other_parameters.modified_tuckflap*2 - 14 +
+            parameters[0] - 14 + 22 + 8)*2 + 2*parameters[0] + 4* ( 1.025*other_parameters.modified_dustflap + 0.88*parameters[1] - 10 + 16 +
+            (0.01*(parameters[1])**2 + 0.52*(other_parameters.modified_dustflap)**2)**0.5  + 2.24 + 0.11*other_parameters.modified_dustflap)
+            )*horizontal_horizontalup*horizontal_verticalup 
+       
+            vertical_creasing_length = (4*parameters[2] + 4*parameters[0] + 4*parameters[1] - 32)*vertical_verticalup*vertical_horizontalup
+            horizontal_creasing_length = (4*parameters[2] + 4*parameters[0] + 4*parameters[1] - 32)*horizontal_verticalup*horizontal_horizontalup
+         
+
+     
+        const final_model_horizontal = {
+            models : horizontal_model,
+            units : 'mm'}
+
+            svg_horizontal = maker.exporter.toSVG(final_model_horizontal)
+        vertical_verticalup+=vertical_verticalup1
+        horizontal_horizontalup+=horizontal_horizontalup1
+        
+     }   
     if(other_parameters.boxstyle === "A001"|| other_parameters.boxstyle === "A002X" || other_parameters.boxstyle === "A002B"|| other_parameters.boxstyle === "A002A"|| other_parameters.boxstyle === "A002AX"|| other_parameters.boxstyle === "A002BX"|| other_parameters.boxstyle === "A002CX"|| other_parameters.boxstyle === "A002D"|| other_parameters.boxstyle === "A002DX"|| other_parameters.boxstyle === "A002E"|| other_parameters.boxstyle === "A002EX"|| other_parameters.boxstyle === "A002F"|| other_parameters.boxstyle === "A002FX"|| other_parameters.boxstyle === "A002"|| other_parameters.boxstyle === "A001H"|| other_parameters.boxstyle === "A001AX"|| other_parameters.boxstyle === "A001J" || other_parameters.boxstyle === "A001I"|| other_parameters.boxstyle === "A001A" || other_parameters.boxstyle === "A001B" || other_parameters.boxstyle === "A001D" || other_parameters.boxstyle === "A001E"|| other_parameters.boxstyle === "A001F"){
         const a = other_parameters.modified_glueflap + 2*other_parameters.modified_parameters[0] + 2*other_parameters.modified_parameters[1] -1 
         const b = 2*other_parameters.modified_tuckflap + 2*other_parameters.modified_parameters[1] + other_parameters.modified_parameters[2]
@@ -1463,6 +1615,7 @@ const nesting  = (req,res) => {
                 })
             }
             catch(err){
+                console.log(err)
                 res.send("Error").status(400)
             }
 }

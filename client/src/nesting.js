@@ -111,7 +111,7 @@ else{
       {/*nesting in vertical form */}
   
       <div className='grid-item-nesting'>
-        
+        {console.log(image.vertical)}
         <div className='image'><div className='title'style={{textAlign : 'center'}}>Vertical Interlocking</div><br/>{parse(image.vertical,options)}</div><br/>
         <div id='grid'>
         <div className='title' style={{textAlign : 'center'}}>{image.vertical_ups[0]*image.vertical_ups[1]} Ups  Click to Select For Cost Estimation<input style={{width:'1em'}} name='selection' type='radio' /></div>
@@ -173,7 +173,7 @@ else{
           </div>
         {/*nesting in horizontal form */}
         <div className='grid-item-nesting'>
-          
+          {console.log(image.horizontal)}
           <div className='image'><div className='title'style={{textAlign : 'center'}}>Horizontal Interlocking</div><br/>{parse(image.horizontal,options)}</div><br/>
           <div id='grid'>
         <div className='title' style={{textAlign : 'center'}}>{image.horizontal_ups[0]*image.horizontal_ups[1]} Ups  Click to Select For Cost Estimation<input style={{width:'1em'}} name='selection' type='radio' /></div>

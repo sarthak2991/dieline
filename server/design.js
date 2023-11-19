@@ -37,6 +37,22 @@ function rectangle12(length,width){
     }
 }
 
+function flap1(parameters,other_parameters){
+    this.paths = {
+        'a' : new maker.paths.Line([0,0],[0,-0.325*parameters[2]+5]),
+        'b' : new maker.paths.Arc([5,-0.325*parameters[2]+5],5,180,270),
+        'c' : new maker.paths.Line([5,-0.325*parameters[2]],[0.25*parameters[0]-5,-0.325*parameters[2]]),
+        'd' : new maker.paths.Arc([0.25*parameters[0]-5,-0.325*parameters[2]+5],5,270,360),
+        'f' : new maker.paths.Line([0.25*parameters[0],-0.325*parameters[2]+5],[0.25*parameters[0]-5,-0.25*parameters[2]]),
+        'h' : new maker.paths.Line([0.25*parameters[0]-5,-0.25*parameters[2]],[0.75*parameters[0]+5,-0.25*parameters[2]]),
+        'i' : new maker.paths.Line([0.75*parameters[0]+5,-0.25*parameters[2]],[0.75*parameters[0],-0.325*parameters[2]+5]),
+        'j' : new maker.paths.Arc([0.75*parameters[0]+5,-0.325*parameters[2]+5],5,180,270),
+        'k' : new maker.paths.Line([0.75*parameters[0]+5,-0.325*parameters[2]],[parameters[0]-5-0.5,-0.325*parameters[2]]),
+        'l' : new maker.paths.Arc([parameters[0]-5-0.5,-0.325*parameters[2]+5],5,270,360),
+        'm' : new maker.paths.Line([parameters[0]-0.5,-0.325*parameters[2]+5],[parameters[0]-0.5,0])
+    }
+}
+
 function rectangle2 (length,width) {
     this.paths = {
         'a' : new maker.paths.Line([0,0],[0,length-1]),
@@ -46,6 +62,29 @@ function rectangle2 (length,width) {
     }
 }
 
+function flap2(parameters,other_parameters){
+    this.paths = {
+        'a' : new maker.paths.Line([0,0],[0.5*parameters[1],-0.15*parameters[2]]),
+        'b' : new maker.paths.Line([0.5*parameters[1],-0.15*parameters[2]],[0.5*parameters[1]-5,-0.25*parameters[2]+5]),
+        'c' : new maker.paths.Arc([0.5*parameters[1],-0.25*parameters[2]+5],5,180,270),
+        'd' : new maker.paths.Line([0.5*parameters[1],-0.25*parameters[2]],[parameters[1]-5,-0.25*parameters[2]]),
+        'e' : new maker.paths.Arc([parameters[1]-0.5-5,-0.25*parameters[2]+5],5,270,360),
+        'f' : new maker.paths.Line([parameters[1]-0.5,-0.25*parameters[2]+5],[parameters[1]-0.5,0])
+    }
+}
+
+
+function flap3(parameters,other_parameters){
+    this.paths = {
+        'a' : new maker.paths.Line([0,0],[0.25*parameters[0],-0.225*parameters[2]]),
+        'b' : new maker.paths.Line([0.25*parameters[0],-0.225*parameters[2]],[0.25*parameters[0],-0.325*parameters[2]+5]),
+        'c' : new maker.paths.Arc([0.25*parameters[0]+5,-0.325*parameters[2]+5],5,180,270),
+        'd' : new maker.paths.Line([0.25*parameters[0]+5,-0.325*parameters[2]],[0.75*parameters[0]-5,-0.325*parameters[2]]),
+        'e' : new maker.paths.Arc([0.75*parameters[0]-5,-0.325*parameters[2]+5],5,270,360),
+        'f' : new maker.paths.Line([0.75*parameters[0],-0.325*parameters[2]+5],[0.75*parameters[0],-0.225*parameters[2]]),
+        'g' : new maker.paths.Line([0.75*parameters[0],-0.225*parameters[2]],[parameters[0]-0.5,0])
+    }
+}
 function rectangle3 (length,width) {
     this.paths = {
         'a' : new maker.paths.Line([0,1],[0,length]),
@@ -301,6 +340,94 @@ function A001(parameters,other_parameters){
     this.models.s13.layer = 'red'
     this.models.s14.layer = 'red'
 }
+
+function C001A(parameters,other_parameters){
+    this.models = {
+        s1 : maker.model.move(maker.model.mirror(new rectangle5(parameters[2],parameters[0]),true,false),[parameters[0],0]),
+        s2 : maker.model.move(new rectangle5(parameters[2],parameters[1]),[parameters[0],0]),
+        s3 : maker.model.move(new maker.models.Rectangle(parameters[0],parameters[2]),[parameters[0]+parameters[1],0]),
+        s4 : maker.model.move(new maker.models.Rectangle(parameters[1]-1,parameters[2]),[2*parameters[0]+parameters[1],0]),
+        s5 : new glueflap(other_parameters.modified_glueflap,parameters[2]),
+        s6 : maker.model.move(new tuckflap(parameters[0]-0.5,other_parameters.modified_tuckflap,parameters[1]+0.5),[0,parameters[2]]),
+        s8 : maker.model.move(new offset(),[parameters[0]-0.5,parameters[2]-1]),
+        s11 : maker.model.move(new dustflap(other_parameters.modified_dustflap,parameters[1]-0.5),[parameters[0]+0.5,parameters[2]]),
+        s12 : maker.model.move(maker.model.mirror(new dustflap(other_parameters.modified_dustflap,parameters[1]-1),true,false),[2*parameters[0]+2*parameters[1]-1,parameters[2]]),
+        s13 : maker.model.move(new flap1(parameters,other_parameters),[0,0]),
+        s14 : maker.model.move(new flap2(parameters,other_parameters),[parameters[0],0]),
+       s15 : maker.model.move(new flap3(parameters,other_parameters),[parameters[0]+parameters[1],0]),
+        s16 : maker.model.move(maker.model.mirror(new flap2(parameters,other_parameters),true,false),[2*parameters[0]+2*parameters[1],0])
+    }
+    this.units = maker.unitType.Millimeter
+    this.models.s1.layer = 'green'
+    
+    this.models.s2.layer = 'green'
+    
+    this.models.s3.paths.ShapeLine3.layer = 'red'
+    this.models.s3.layer = 'green'
+    this.models.s4.paths.ShapeLine2.layer = 'red'
+    this.models.s4.layer = 'green'
+    this.models.s5.layer = 'red'
+    this.models.s6.layer = 'red'
+    this.models.s6.paths.e.layer = 'green'
+    this.models.s8.layer = 'red'
+    this.models.s11.layer = 'red'
+    this.models.s12.layer = 'red'
+    this.models.s13.layer = 'red'
+    this.models.s14.layer = 'red'
+   this.models.s15.layer = 'red'
+     this.models.s16.layer = 'red'
+    
+}
+
+function C001AX(parameters,other_parameters){
+    
+    this.models = {
+        s1 : maker.model.move(maker.model.mirror(new rectangle5(parameters[2],parameters[0]),true,false),[parameters[0],0]),
+        s2 : maker.model.move(maker.model.mirror(new rectangle5(parameters[2],parameters[1]),true,false),[parameters[0]+parameters[1],0]),
+        s3 : maker.model.move(new rectangle6(parameters[2],parameters[0]),[parameters[0]+parameters[1],0]),
+        s4 : maker.model.move(new rectangle5(parameters[2],parameters[1]-1),[2*parameters[0]+parameters[1],0]),
+        s5 : new glueflap(other_parameters.modified_glueflap,parameters[2]),
+        s6 : maker.model.move(new tuckflap(parameters[0]-1,other_parameters.modified_tuckflap,parameters[1]+0.5),[parameters[0]+parameters[1]+0.5,parameters[2]]),
+        s8 : maker.model.move(new offset(),[parameters[0]+parameters[1]-0.5,parameters[2]-1]),
+        s9 : maker.model.move(maker.model.mirror(new offset(),true,true),[parameters[0]+parameters[1]+0.5,1]),
+        s10 : maker.model.move(maker.model.mirror(new offset(),false,true),[2*parameters[0]+parameters[1]-0.5,1]),
+        s11 : maker.model.move(new dustflap1(other_parameters.modified_dustflap,parameters[1]-1),[2*parameters[0]+parameters[1]+0.5,parameters[2]]),
+        s12 : maker.model.move(maker.model.mirror(new dustflap2(other_parameters.modified_dustflap,parameters[1]-1),true,false),[parameters[0]+parameters[1]-0.5,parameters[2]]),
+        
+        s15 : maker.model.move(new offset(),[2*parameters[0]+parameters[1]-0.5,parameters[2]-1]),
+        s16 : maker.model.move(new flap1(parameters,other_parameters),[0,0]),
+        s17 : maker.model.move(new flap2(parameters,other_parameters),[parameters[0],0]),
+       s18 : maker.model.move(new flap3(parameters,other_parameters),[parameters[0]+parameters[1],0]),
+        s19 : maker.model.move(maker.model.mirror(new flap2(parameters,other_parameters),true,false),[2*parameters[0]+2*parameters[1],0])
+   
+    }   
+    this.units = maker.unitType.Millimeter
+    this.models.s1.layer = 'green'
+   
+   
+
+    this.models.s2.layer = 'green'
+    this.models.s3.layer = 'green'
+    
+    this.models.s4.layer = 'green'
+    this.models.s4.paths.c.layer = 'red'
+    this.models.s5.layer = 'red'
+    this.models.s6.layer = 'red'
+    
+   
+    this.models.s8.layer = 'red'
+    this.models.s9.layer = 'red'
+    this.models.s10.layer = 'red'
+    this.models.s11.layer = 'red'
+    this.models.s12.layer = 'red'
+    
+    this.models.s15.layer = 'red'
+    this.models.s16.layer = 'red'
+    this.models.s17.layer = 'red'
+    this.models.s18.layer = 'red'
+    this.models.s19.layer = 'red'
+}
+
 
 
 function A002(parameters,other_parameters){
@@ -1493,4 +1620,4 @@ this.models.s3.paths.f.layer = 'red'
    
    }
 
-module.exports = {A001AX,A001J,A001I,A001,A001A,A001B,A002CXX,A001D,A002FX,A001E,A001F,A002X,A001H,A002,A002EX,A002BX,A002E,A002F,A002DX,A002D,A002A,A002B,A002AX,A002CX}
+module.exports = {A001AX,A001J,A001I,A001,A001A,A001B,C001A,C001AX,A002CXX,A001D,A002FX,A001E,A001F,A002X,A001H,A002,A002EX,A002BX,A002E,A002F,A002DX,A002D,A002A,A002B,A002AX,A002CX}
