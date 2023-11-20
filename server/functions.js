@@ -252,6 +252,18 @@ const generatekeylinepdf =  (req,res) =>{
        
        
     }
+    if(req.body.boxstyle === 'C001A' ){
+        model = new C001A(parameters,other_parameters)
+        
+       
+       
+    }
+    if(req.body.boxstyle === 'C001AX' ){
+        model = new C001AX(parameters,other_parameters)
+        
+       
+       
+    }
     
      if(parseFloat(other_parameters.bleed) !== 0){
         svg = outlinegenerator(model,parameters,other_parameters)
